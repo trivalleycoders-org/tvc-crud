@@ -6,10 +6,10 @@ export const getMembers = (state) =>{
 }
 
 export const getMember = (state, _id) => {
-  ku.log('selectors.getMember: state', state, 'red');
-  ku.log('selectors.getmember: _id', _id, 'red');
+  // ku.log('selectors.getMember: state', state, 'red');
+  // ku.log('selectors.getmember: _id', _id, 'red');
   const o = state.members.membersById[_id] || null;
-  ku.log('selectors.getmember: o', o, 'red');
+  // ku.log('selectors.getmember: o', o, 'red');
   return o;
 }
 

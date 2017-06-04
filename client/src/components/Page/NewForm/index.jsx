@@ -9,12 +9,40 @@ import * as selectors from '../../../store/selectors';
 
 // const NewForm = ({ updateMember, member, requestCreateMember, requestUpdateMember }) => {
 class NewForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: '',
+      fName: '',
+      lName: '',
+      mPicture: '',
+      mRole: '',
+    }
+  }
   /*componentWillMount() {
     // this.props.requestReadMembers();
   }*/
 
   render() {
     const { updateMember, member, requestCreateMember, requestUpdateMember, readMembersRequest } = this.props;
+    console.log('props', this.props);
+
+    const updateLocalMember = (propName, propValue) => {
+      switch (propName) {
+        case ('firstName'):
+          updateMember(member._id, propValue, member.lastName, member.role, member.picture)
+          break;
+        case ('lastName'):
+          updateMember(member._id, member.firstName, propValue, member.role, member.picture)
+          break;
+        case ('role'):
+          updateMember(member._id, member.firstName, member.lastName, propValue, member.picture)
+          break;
+        case ('picture'):
+          updateMember(member._id, member.firstName, member.lastName, member.role, propValue)
+          break;
+      }
+    }
 
     return (
       <div>
@@ -38,44 +66,38 @@ class NewForm extends Component {
           <FormControl
             key={'firstName'}
             type="text"
-            onChange={(event) => updateMember(event.target.value)}
+            onChange={(event) => updateLocalMember('firstName', event.target.value)}
             placeholder='First Name'
             value={member.firstName}
           />
           <FormControl
             key={'lastName'}
             type="text"
-            onChange={(event) => updateMember(event.target.value)}
+            onChange={(event) => updateLocalMember('lastName', event.target.value)}
             placeholder='Last Name'
             value={member.lastName}
           />
           <FormControl
             key={'picture'}
             type="text"
-            onChange={(event) => updateMember(event.target.value)}
+            onChange={(event) => updateLocalMember('picture', event.target.value)}
             placeholder='Picture'
             value={member.picture}
           />
           <FormControl
             key={'role'}
             type="text"
-            onChange={(event) => updateMember(event.target.value)}
+            onChange={(event) => updateLocalMember('role', event.target.value)}
             placeholder='Role'
             value={member.role}
           />
         </form>
       </div>
-    )
-  }
-}
+              )
+              }
+              }
 
-/*NewForm.propTypes = {
-  member: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-  }),
-};*/
-
-const mapStateToProps = (state) => {
+              const mapStateToProps = (state) => {
 
   let newMemberId = selectors.getNewMemberId(state);
   let tmpMember;
