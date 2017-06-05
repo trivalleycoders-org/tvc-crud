@@ -12,23 +12,30 @@ export const newMemberId = (_id) => ({
 });
 
 export const insertMember = (member) => {
-  ku.log('actions.insertMember: member', member, 'red')
+  // ku.log('actions.insertMember: member', member, 'red')
   return {
     type: 'app/insertMember',
     payload: member,
   }
 };
 
-export const updateMember = (_id, firstName, lastName, role, picture ) => ({
-  type: 'app/updateMember',
-  payload: {
-    _id,
-    firstName,
-    lastName,
-    role,
-    picture,
+export const updateMember = ( _id, firstName, lastName, role, picture ) => {
+  ku.log('actions.updatemember: _id', _id, 'green');
+  ku.log('actions.updatemember: firstName', firstName, 'green');
+  ku.log('actions.updatemember: lastName', lastName, 'green');
+  ku.log('actions.updatemember: role', role, 'green');
+  ku.log('actions.updatemember: picture', picture, 'green');
+  return {
+    type: 'app/updateMember',
+    payload: {
+      _id,
+      firstName,
+      lastName,
+      role,
+      picture,
+    }
   }
-})
+}
 
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',

@@ -8,12 +8,14 @@ export const membersById = ( state = {}, { type, payload }) => {
     case 'app/updateMember':
       ku.log('reducers.membersById: type', type, 'green');
       ku.log('reducers.membersById: payload', payload, 'green');
+      ku.log('reducers.membersById: state', state, 'green')
       const p = merge(state, { [payload._id]: payload });
-      ku.log('reducers.membersById: p', p, 'red');
+      // const p = mergeAll(state, payload);
+      ku.log('reducers.membersById: p', p, 'green');
       return p;
     case 'app/insertMember': // new/add
-      ku.log('reducers.membersById: type', type, 'green');
-      ku.log('reducers.membersById: payload', payload, 'green');
+      // ku.log('reducers.membersById: type', type, 'green');
+      // ku.log('reducers.membersById: payload', payload, 'green');
       const o = merge(state, { [payload._id]: payload });
       // ku.log('reducers.membersById: o', o, 'green');
       return o;
