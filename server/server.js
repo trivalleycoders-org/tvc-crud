@@ -102,7 +102,7 @@ router.put('/members/:id', (req, res) => {
   // ** should do some validation here to check that all required
   // data is present of of a valid type **
 
-  db.collection('members').updateOne(
+  db.collection('members').findOneAndUpdate(
     { _id: memberId },
     { $set:
       {
@@ -111,8 +111,8 @@ router.put('/members/:id', (req, res) => {
         lastName: req.body.member.lastName,
         role: req.body.member.role,
       }
-    }
-    // db.collection('members').find({ _id: memberId }).limit(1).next()
+    },
+    { returnNewDocument: true },
   )
   .then(updatedMember => {
     let udm = JSON.stringify(updatedMember)
