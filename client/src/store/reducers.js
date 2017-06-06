@@ -33,10 +33,16 @@ export const membersIds = (state = [], { type, payload }) => {
 export const newMemberId = (state = null, { type, payload }) => {
   switch (type) {
     case 'app/newMemberId':
-      /*ku.log('newMemberId.type', type, 'green')
-      ku.log('newMemberId.payload', payload, 'green')
-      ku.log('payload._id', payload._id, 'green')*/
       return payload._id;
+    default:
+      return state;
+  }
+};
+
+export const showManageMemebers = (state = null, { type, payload }) => {
+  switch (type) {
+    case 'app/showManageMemebers':
+      return payload.show;
     default:
       return state;
   }
@@ -62,6 +68,7 @@ export default combineReducers({
   }),
   ui: combineReducers({
     newMemberId,
+    showManageMemebers,
   }),
   requests,
 })

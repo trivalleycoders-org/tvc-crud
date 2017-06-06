@@ -1,6 +1,11 @@
 import api from '../api';
 import * as ku from '../lib/ke-utils'
 
+export const showManageMemebers = (show) => ({
+  type: 'app/showManageMembers',
+  payload: { show },
+});
+
 export const replaceMembers = (members) => ({
   type: 'app/replaceMembers',
   payload: members,
