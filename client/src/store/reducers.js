@@ -1,26 +1,16 @@
 import { combineReducers } from 'redux';
-// import { dissoc } from 'ramda';
-import { merge, prepend, mergeAll } from 'ramda';
+import { merge, prepend, dissoc, without } from 'ramda';
 import * as ku from '../lib/ke-utils';
 
 export const membersById = ( state = {}, { type, payload }) => {
   switch (type) {
     case 'app/updateMember':
-      ku.log('reducers.membersById: type', type, 'green');
-      ku.log('reducers.membersById: payload', payload, 'green');
-      ku.log('reducers.membersById: state', state, 'green')
-      const p = merge(state, { [payload._id]: payload });
-      // const p = mergeAll(state, payload);
-      ku.log('reducers.membersById: p', p, 'green');
-      return p;
-    case 'app/insertMember': // new/add
-      // ku.log('reducers.membersById: type', type, 'green');
-      // ku.log('reducers.membersById: payload', payload, 'green');
-      const o = merge(state, { [payload._id]: payload });
-      // ku.log('reducers.membersById: o', o, 'green');
-      return o;
+    case 'app/insertMember': // new/add & update
+      return merge(state, { [payload._id]: payload });
     case 'app/replaceMembers': // read list load all
       return payload.members;
+    case 'app/removeNote':
+      return dissoc(payload._id, state);
     default:
       return state;
   }
@@ -28,14 +18,13 @@ export const membersById = ( state = {}, { type, payload }) => {
 
 export const membersIds = (state = [], { type, payload }) => {
   switch (type) {
-    // case 'app/updateMember':
-    case 'app/insertMember':
-      // ku.log('reducers.membersIds: payload', payload, 'green');
-      const o = prepend(payload._id, state);
-      // ku.log('reducers.membersIds: o', o, 'green');
-      return o;
     case 'app/replaceMembers':
+      // ku.log('membersIds.payload', payload, 'green');
       return payload.ids;
+    case 'app/insertMember':
+      return prepend(payload._id, state);
+    case 'app/removeMember':
+      return dissoc(payload._id, state);
     default:
       return state;
   }

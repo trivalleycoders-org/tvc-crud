@@ -20,11 +20,11 @@ export const insertMember = (member) => {
 };
 
 export const updateMember = ( _id, firstName, lastName, role, picture ) => {
-  ku.log('_id', _id, 'red');
-  ku.log('firstName', firstName, 'red');
-  ku.log('lastName', lastName, 'red');
-  ku.log('role', role, 'red');
-  ku.log('picture', picture, 'red');
+  // ku.log('_id', _id, 'red');
+  // ku.log('firstName', firstName, 'red');
+  // ku.log('lastName', lastName, 'red');
+  // ku.log('role', role, 'red');
+  // ku.log('picture', picture, 'red');
   return {
     type: 'app/updateMember',
     payload: {
@@ -36,6 +36,11 @@ export const updateMember = ( _id, firstName, lastName, role, picture ) => {
     }
   }
 }
+
+export const removeMember = (_id) => ({
+  type: 'app/removeNote',
+  payload: { _id },
+});
 
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
@@ -99,4 +104,12 @@ export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
   // success: [ updateMember ]
+  // failure:
+})
+
+export const requestDeleteMember = createRequestThunk({
+  request: api.members.delete,
+  key: (_id) => `deleteMember/${_id}`,
+  success: [ (member) => removeMember(member._id) ]
+  // failure:
 })

@@ -10,14 +10,12 @@ import Member from './Member';
 import './style.css';
 
 class Members extends Component {
+  constructor (props) {
+    super(props);
+  }
   componentWillMount() {
     this.props.requestReadMembers();
-    // this.handleNewMemberClick = this.handleNewMemberClick.bind(this);
   }
-
-  /*handleNewMemberClick() {
-    alert('clicked');
-  }*/
 
   render() {
     const { readMembersRequest } = this.props;

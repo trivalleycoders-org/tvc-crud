@@ -33,8 +33,6 @@ router.get('/events', (req, res) => {
       console.log(error);
       res.status(500).json({ message: 'Internal Server Error' })
     })
-  // const e = events
-  // res.send(e)
 })
 
 router.get('/projects', (req, res) => {
@@ -48,6 +46,9 @@ router.get('/projects', (req, res) => {
     })
 })
 
+/*
+    Members
+ */
 router.get('/members', (req, res) => {
   db.collection('members').find().toArray()
     .then(members => {
@@ -84,9 +85,9 @@ router.post('/members', (req, res) => {
 });
 
 router.put('/members/:id', (req, res) => {
-  ku.log('router.put/members/:id body', req.body);
-  ku.log('req.params.id', req.params.id);
-  ku.log('req.body.firstName', req.body.member.firstName)
+  // ku.log('router.put/members/:id body', req.body);
+  // ku.log('req.params.id', req.params.id);
+  // ku.log('req.body.firstName', req.body.member.firstName)
   let memberId;
   try {
     memberId = new ObjectId(req.params.id);
@@ -94,7 +95,7 @@ router.put('/members/:id', (req, res) => {
     resp.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
-  ku.log('memberId', memberId);
+  // ku.log('memberId', memberId);
   // const member = req.body;
   // Don't need the _id as stored in the member object so delete it
   delete res._id;
@@ -124,38 +125,15 @@ router.put('/members/:id', (req, res) => {
   });
 });
 
-router.get('/techlogos', (req, res) => {
-  db.collection('techlogos').find().toArray()
-    .then(techlogos => {
-      const metadata = { total_count: techlogos.length}
-      res.json(techlogos)
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' })
-    })
-})
-
-router.get('/navbuttons', (req, res) => {
-  db.collection('navbuttons').find().toArray()
-    .then(navbuttons => {
-      res.json(navbuttons)
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' })
-    })
-})
-
-router.get('/sponsors', (req, res) => {
-  db.collection('sponsors').find().toArray()
-    .then(sponsors => {
-      res.json(sponsors)
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' })
-    })
+app.delete('/members/:id', (req, res) => {
+  let memberId;
+  try {
+    memberId = new ObjectId(req.params.id);
+  } catch (error) {
+    resp.status(422).json({ message: `Invalid member._id: ${error}`});
+    return;
+  }
+  db.collection('members').deleteOne({ _id: memberId })
 })
 
 app.use(router)

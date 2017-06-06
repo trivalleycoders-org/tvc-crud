@@ -9,33 +9,16 @@ import * as ku from '../../../lib/ke-utils';
 
 // const NewForm = ({ updateMember, member, requestCreateMember, requestUpdateMember }) => {
 class NewForm extends Component {
+  constructor(props) {
+    super(props);
+  }
   /*componentWillMount() {
     // this.props.requestReadMembers();
   }*/
 
   render() {
-    const { updateMember, member, requestCreateMember, requestUpdateMember, readMembersRequest } = this.props;
+    const { updateMember, member, readMembersRequest, requestCreateMember, requestUpdateMember, requestDeleteMember } = this.props;
     console.log('props', this.props);
-
-    // Why doesn't this work?
-    /*const updateLocalMember = (pName, pValue) => {
-      const updatedMember = {
-        _id: member.id,
-        firstName: pName === 'firstName'
-          ? member.firstName + pValue
-          : member.firstName,
-        lastName: pName === 'lastName'
-          ? member.lastName + pValue
-          : member.lastName,
-        role: pName === 'role'
-          ? member.role + pValue
-          : member.role,
-        picture: pName === 'picture'
-          ? member.picture + pValue
-          : member.picture,
-      }
-      updateMember(updatedMember);
-    }*/
 
     const updateLocalMember = (eventName, eventValue) => {
       ku.log('eventName', eventName, 'green');
@@ -67,7 +50,11 @@ class NewForm extends Component {
         >
           Save
         </Button>
-
+        <Button
+          onClick={() => requestDeleteMember(member._id, member)}
+        >
+          Cancel
+        </Button>
         {member._id
           ? <h1>true</h1>
           : <h1>false</h1>
@@ -115,11 +102,9 @@ class NewForm extends Component {
 const mapStateToProps = (state) => {
   let newMemberId = selectors.getNewMemberId(state);
   let tmpMember;
-  // ku.log('newMemberId', newMemberId, 'green');
   newMemberId = newMemberId === null
   ? tmpMember = 'empty'
   : tmpMember = selectors.getMember(state, newMemberId);
-  // ku.log('newMemberId=null?', newMemberId, 'green');
   const o = {
     member: tmpMember,
     readMembersRequest: selectors.getRequest(state, 'readMembers'),
