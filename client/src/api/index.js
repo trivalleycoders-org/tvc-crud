@@ -86,13 +86,13 @@ export default {
       );
     },
 
-    update(id, newMember) {
+    update(id, member) {
       console.log('members.update.id', id);
       return fetchJson(
         `/members/${id}`,
         {
           method: 'PUT',
-          body: JSON.stringify({ newMember }) }
+          body: JSON.stringify({ member }) }
       );
     },
 

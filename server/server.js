@@ -67,14 +67,14 @@ router.post('/members', (req, res) => {
     role: "",
     index: 0,
   }
-  console.log('member', member);
+  // console.log('member', member);
   db.collection('members').insertOne(member)
     .then(result =>
       db.collection('members').find({_id: result.insertedId}).limit(1)
       .next()
     )
     .then(savedMember => {
-      console.log('savedMember', savedMember);
+      // console.log('savedMember', savedMember);
       res.json(savedMember);
     })
     .catch(error => {
@@ -84,24 +84,38 @@ router.post('/members', (req, res) => {
 });
 
 router.put('/members/:id', (req, res) => {
-  ku.log('router.put/members/:id', req, 'green');
+  ku.log('router.put/members/:id body', req.body);
+  ku.log('req.params.id', req.params.id);
+  ku.log('req.body.firstName', req.body.member.firstName)
   let memberId;
   try {
-    _id = new ObjectId(req.params.id);
+    memberId = new ObjectId(req.params.id);
   } catch (error) {
     resp.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
-  const member = req.body;
+  ku.log('memberId', memberId);
+  // const member = req.body;
   // Don't need the _id as stored in the member object so delete it
-  delete member._id;
+  delete res._id;
   // ** should do some validation here to check that all required
   // data is present of of a valid type **
 
-  db.collection('members').updateOne({ _id: memberId },
-    db.collection('members').find({ _id: memberId }).limit(1).next()
+  db.collection('members').updateOne(
+    { _id: memberId },
+    { $set:
+      {
+        picture: req.body.member.picture,
+        firstName: req.body.member.firstName,
+        lastName: req.body.member.lastName,
+        role: req.body.member.role,
+      }
+    }
+    // db.collection('members').find({ _id: memberId }).limit(1).next()
   )
   .then(updatedMember => {
+    let udm = JSON.stringify(updatedMember)
+    ku.log('updatedMember', udm);
     res.json(updatedMember);
   })
   .catch(error => {

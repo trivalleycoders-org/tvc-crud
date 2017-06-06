@@ -20,11 +20,11 @@ export const insertMember = (member) => {
 };
 
 export const updateMember = ( _id, firstName, lastName, role, picture ) => {
-  ku.log('actions.updatemember: _id', _id, 'green');
-  ku.log('actions.updatemember: firstName', firstName, 'green');
-  ku.log('actions.updatemember: lastName', lastName, 'green');
-  ku.log('actions.updatemember: role', role, 'green');
-  ku.log('actions.updatemember: picture', picture, 'green');
+  ku.log('_id', _id, 'red');
+  ku.log('firstName', firstName, 'red');
+  ku.log('lastName', lastName, 'red');
+  ku.log('role', role, 'red');
+  ku.log('picture', picture, 'red');
   return {
     type: 'app/updateMember',
     payload: {
@@ -98,5 +98,5 @@ export const requestCreateMember = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
-  success: [ updateMember ]
+  // success: [ updateMember ]
 })

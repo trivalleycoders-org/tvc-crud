@@ -15,27 +15,6 @@ class NewForm extends Component {
 
   render() {
     const { updateMember, member, requestCreateMember, requestUpdateMember, readMembersRequest } = this.props;
-    console.log('props', this.props);
-
-    // Why doesn't this work?
-    /*const updateLocalMember = (pName, pValue) => {
-      const updatedMember = {
-        _id: member.id,
-        firstName: pName === 'firstName'
-          ? member.firstName + pValue
-          : member.firstName,
-        lastName: pName === 'lastName'
-          ? member.lastName + pValue
-          : member.lastName,
-        role: pName === 'role'
-          ? member.role + pValue
-          : member.role,
-        picture: pName === 'picture'
-          ? member.picture + pValue
-          : member.picture,
-      }
-      updateMember(updatedMember);
-    }*/
 
     const updateLocalMember = (propName, propValue) => {
       switch (propName) {
