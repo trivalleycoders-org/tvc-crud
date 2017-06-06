@@ -5,7 +5,7 @@ import { Component } from 'react';
 import { FormControl, Button } from 'react-bootstrap';
 import * as actionCreators from '../../../store/actions';
 import * as selectors from '../../../store/selectors';
-// import * as ku from '../../../lib/ke-utils';
+import * as ku from '../../../lib/ke-utils';
 
 // const NewForm = ({ updateMember, member, requestCreateMember, requestUpdateMember }) => {
 class NewForm extends Component {
@@ -15,20 +15,42 @@ class NewForm extends Component {
 
   render() {
     const { updateMember, member, requestCreateMember, requestUpdateMember, readMembersRequest } = this.props;
+    console.log('props', this.props);
 
-    const updateLocalMember = (propName, propValue) => {
-      switch (propName) {
+    // Why doesn't this work?
+    /*const updateLocalMember = (pName, pValue) => {
+      const updatedMember = {
+        _id: member.id,
+        firstName: pName === 'firstName'
+          ? member.firstName + pValue
+          : member.firstName,
+        lastName: pName === 'lastName'
+          ? member.lastName + pValue
+          : member.lastName,
+        role: pName === 'role'
+          ? member.role + pValue
+          : member.role,
+        picture: pName === 'picture'
+          ? member.picture + pValue
+          : member.picture,
+      }
+      updateMember(updatedMember);
+    }*/
+
+    const updateLocalMember = (eventName, eventValue) => {
+      ku.log('eventName', eventName, 'green');
+      switch (eventName) {
         case ('firstName'):
-          updateMember(member._id, propValue, member.lastName, member.role, member.picture)
+          updateMember(member._id, eventValue, member.lastName, member.role, member.picture)
           break;
         case ('lastName'):
-          updateMember(member._id, member.firstName, propValue, member.role, member.picture)
+          updateMember(member._id, member.firstName, eventValue, member.role, member.picture)
           break;
         case ('role'):
-          updateMember(member._id, member.firstName, member.lastName, propValue, member.picture)
+          updateMember(member._id, member.firstName, member.lastName, eventValue, member.picture)
           break;
         case ('picture'):
-          updateMember(member._id, member.firstName, member.lastName, member.role, propValue)
+          updateMember(member._id, member.firstName, member.lastName, member.role, eventValue)
           break;
       }
     }
@@ -55,13 +77,15 @@ class NewForm extends Component {
           <FormControl
             key={'firstName'}
             type="text"
-            onChange={(event) => updateLocalMember('firstName', event.target.value)}
+            name='firstName'
+            onChange={(event) => updateLocalMember(event.target.name, event.target.value)}
             placeholder='First Name'
             value={member.firstName}
           />
           <FormControl
             key={'lastName'}
             type="text"
+            name='lastName'
             onChange={(event) => updateLocalMember('lastName', event.target.value)}
             placeholder='Last Name'
             value={member.lastName}
@@ -69,6 +93,7 @@ class NewForm extends Component {
           <FormControl
             key={'picture'}
             type="text"
+            name='picture'
             onChange={(event) => updateLocalMember('picture', event.target.value)}
             placeholder='Picture'
             value={member.picture}
@@ -76,18 +101,18 @@ class NewForm extends Component {
           <FormControl
             key={'role'}
             type="text"
+            name='role'
             onChange={(event) => updateLocalMember('role', event.target.value)}
             placeholder='Role'
             value={member.role}
           />
         </form>
       </div>
-              )
-              }
-              }
+    )
+  }
+}
 
-              const mapStateToProps = (state) => {
-
+const mapStateToProps = (state) => {
   let newMemberId = selectors.getNewMemberId(state);
   let tmpMember;
   // ku.log('newMemberId', newMemberId, 'green');
