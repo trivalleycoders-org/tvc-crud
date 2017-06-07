@@ -39,6 +39,10 @@ class NewForm extends Component {
       }
     }
 
+    const createNewMember = () => {
+
+    }
+
     return (
       <div>
         <h2>Manage Users</h2>
