@@ -2,9 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-import { FormControl, Button } from 'react-bootstrap';
+import { Grid, Col, FormControl, Button } from 'react-bootstrap';
 import * as actionCreators from '../../../store/actions';
 import * as selectors from '../../../store/selectors';
+import MemberRow from './MemberRow';
 import * as ku from '../../../lib/ke-utils';
 
 // const NewForm = ({ updateMember, member, requestCreateMember, requestUpdateMember }) => {
@@ -12,9 +13,9 @@ class NewForm extends Component {
   constructor(props) {
     super(props);
   }
-  /*componentWillMount() {
-    // this.props.requestReadMembers();
-  }*/
+  componentWillMount() {
+    this.props.requestReadMembers();
+  }
 
   render() {
     const { updateMember, member, readMembersRequest, requestCreateMember, requestUpdateMember, requestDeleteMember } = this.props;
@@ -40,6 +41,7 @@ class NewForm extends Component {
 
     return (
       <div>
+        <h2>Manage Users</h2>
         <Button
           onClick={requestCreateMember}
         >
@@ -55,44 +57,30 @@ class NewForm extends Component {
         >
           Cancel
         </Button>
-        {member._id
+        {/*member._id
           ? <h1>true</h1>
           : <h1>false</h1>
-        }
-        <h1>New Form</h1>
+        */}
+
         <form>
-          <FormControl
-            key={'firstName'}
-            type="text"
-            name='firstName'
-            onChange={(event) => updateLocalMember(event.target.name, event.target.value)}
-            placeholder='First Name'
-            value={member.firstName}
-          />
-          <FormControl
-            key={'lastName'}
-            type="text"
-            name='lastName'
-            onChange={(event) => updateLocalMember('lastName', event.target.value)}
-            placeholder='Last Name'
-            value={member.lastName}
-          />
-          <FormControl
-            key={'picture'}
-            type="text"
-            name='picture'
-            onChange={(event) => updateLocalMember('picture', event.target.value)}
-            placeholder='Picture'
-            value={member.picture}
-          />
-          <FormControl
-            key={'role'}
-            type="text"
-            name='role'
-            onChange={(event) => updateLocalMember('role', event.target.value)}
-            placeholder='Role'
-            value={member.role}
-          />
+          <Grid>
+            <Col sm={4} md={2}>First Name</Col>
+            <Col sm={4} md={2}>Last Name</Col>
+            <Col sm={4} md={4}>Picture</Col>
+            <Col sm={4} md={3}>Role</Col>
+            <Col sm={4} md={1}>Index</Col>
+            {this.props.members.sort((a, b) => a.index - b.index).map((m) => (
+              <MemberRow
+                key={m.id}
+                firstName={m.firstName}
+                lastName={m.lastName}
+                role={m.role}
+                picture={m.picture}
+                index={m.index}
+                update={updateLocalMember}
+              />
+            ))}
+          </Grid>
         </form>
       </div>
     )
