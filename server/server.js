@@ -110,6 +110,7 @@ router.put('/members/:id', (req, res) => {
         firstName: req.body.member.firstName,
         lastName: req.body.member.lastName,
         role: req.body.member.role,
+        index: req.body.member.index,
       }
     },
     { returnNewDocument: true },

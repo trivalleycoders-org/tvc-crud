@@ -1,18 +1,22 @@
 import api from '../api';
 import * as ku from '../lib/ke-utils'
 
-export const showManageMemebers = (show) => ({
-  type: 'app/showManageMembers',
-  payload: { show },
-});
+export const updateShowManageMembers = (value) => {
+  console.log('showManageMembers: value', value, 'green');
+  return {
+  // value will be true / false
+  type: 'app/updateShowManageMembers',
+  payload: { value },
+  }
+};
 
 export const replaceMembers = (members) => ({
   type: 'app/replaceMembers',
   payload: members,
 });
 
-export const newMemberId = (_id) => ({
-  type: 'app/newMemberId',
+export const updateNewMemberId = (_id) => ({
+  type: 'app/updateNewMemberId',
   payload: { _id },
 });
 
@@ -24,7 +28,7 @@ export const insertMember = (member) => {
   }
 };
 
-export const updateMember = ( _id, firstName, lastName, role, picture ) => {
+export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
   // ku.log('_id', _id, 'red');
   // ku.log('firstName', firstName, 'red');
   // ku.log('lastName', lastName, 'red');
@@ -38,12 +42,13 @@ export const updateMember = ( _id, firstName, lastName, role, picture ) => {
       lastName,
       role,
       picture,
+      index,
     }
   }
 }
 
 export const removeMember = (_id) => ({
-  type: 'app/removeNote',
+  type: 'app/removeMember',
   payload: { _id },
 });
 
@@ -102,19 +107,19 @@ export const requestReadMembers = createRequestThunk({
 export const requestCreateMember = createRequestThunk({
   request: api.members.create,
   key: 'createMember',
-  success: [ insertMember, (member) => newMemberId(member._id) ],
+  success: [ insertMember, (member) => updateNewMemberId(member._id) ],
 });
 
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
-  // success: [ updateMember ]
+  success: [ updateNewMemberId('none') ]
   // failure:
 })
 
 export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (_id) => `deleteMember/${_id}`,
-  success: [ (member) => removeMember(member._id) ]
+  success: [ (member) => removeMember(member._id), updateNewMemberId('none') ]
   // failure:
 })

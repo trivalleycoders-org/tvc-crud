@@ -14,8 +14,11 @@ export const getMember = (state, _id) => {
 }
 
 export const getNewMemberId = (state) => {
-  console.log('state', state, 'red');
-  return state.ui.newMemberId;
+  return state.ui.newMemberId || 'none';
+}
+
+export const getShowManageMembers = (state) => {
+  return state.ui.showManageMembers;
 }
 
 // redux selectors
