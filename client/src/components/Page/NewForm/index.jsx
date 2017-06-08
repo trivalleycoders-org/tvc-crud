@@ -19,24 +19,41 @@ class NewForm extends Component {
   render() {
     const { updateMember, newMember, newMemberId2, readMembersRequest, requestCreateMember, requestUpdateMember, requestDeleteMember, newMemberId, updateShowManageMembers } = this.props;
 
+    /*
+    const updateLocalMember = (eventName, eventValue) => {
+      let tmpMember = {};
+      switch (eventName) {
+        case ('firstName'):
+          tmpMember = {
+            firstName:
+            lastName:
+            role:
+            picture:
+            index:
+          }
+      }
+    }
+    */
     const updateLocalMember = (eventName, eventValue) => {
       ku.log('eventName:eventValue', `${eventName}:${eventValue}` , 'green');
       switch (eventName) {
         case ('firstName'):
-          updateMember(newMember._id, eventValue, newMember.lastName, newMember.role, newMember.picture, newMember.index)
+          updateMember(newMember._id, eventValue, newMember.lastName, newMember.role, newMember.picture, newMember.indexNum)
           break;
         case ('lastName'):
-          updateMember(newMember._id, newMember.firstName, eventValue, newMember.role, newMember.picture, newMember.index)
+          updateMember(newMember._id, newMember.firstName, eventValue, newMember.role, newMember.picture, newMember.indexNum)
           break;
         case ('role'):
-          updateMember(newMember._id, newMember.firstName, newMember.lastName, eventValue, newMember.picture, newMember.index)
+          updateMember(newMember._id, newMember.firstName, newMember.lastName, eventValue, newMember.picture, newMember.indexNum)
           break;
         case ('picture'):
-          updateMember(newMember._id, newMember.firstName, newMember.lastName, newMember.role, eventValue, newMember.index)
+          // console.log('case-picture', 'picture');
+          updateMember(newMember._id, newMember.firstName, newMember.lastName, newMember.role, eventValue, newMember.indexNum)
           break;
-          case ('index'):
-            updateMember(newMember._id, newMember.firstName, newMember.lastName, newMember.role, newMember.picture, eventValue)
-            break;
+        case ('indexNum'):
+
+          updateMember(newMember._id, newMember.firstName, newMember.lastName, newMember.role, newMember.picture, eventValue)
+          break;
       }
     }
 
@@ -70,7 +87,7 @@ class NewForm extends Component {
             <Col sm={4} md={4}>Picture</Col>
             <Col sm={4} md={3}>Role</Col>
             <Col sm={4} md={1}>Index</Col>
-            {this.props.members.sort((a, b) => a.index - b.index).map((m) => (
+            {this.props.members.sort((a, b) => a.indexNum - b.indexNum).map((m) => (
               <MemberRow
                 key={m._id}
                 _id={m._id}
@@ -79,7 +96,7 @@ class NewForm extends Component {
                 new={m._id === newMemberId}
                 role={m.role}
                 picture={m.picture}
-                index={m.index}
+                indexNum={m.indexNum}
                 update={updateLocalMember}
               />
             ))}

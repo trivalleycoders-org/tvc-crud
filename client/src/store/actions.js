@@ -15,9 +15,9 @@ export const replaceMembers = (members) => ({
   payload: members,
 });
 
-export const updateNewMemberId = (_id) => ({
+export const updateNewMemberId = (value) => ({
   type: 'app/updateNewMemberId',
-  payload: { _id },
+  payload: { value },
 });
 
 export const insertMember = (member) => {
@@ -28,12 +28,14 @@ export const insertMember = (member) => {
   }
 };
 
-export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
-  // ku.log('_id', _id, 'red');
+export const updateMember = ( _id, firstName, lastName, role, picture, indexNum ) => {
+  ku.log('_id', _id, 'red');
   // ku.log('firstName', firstName, 'red');
   // ku.log('lastName', lastName, 'red');
   // ku.log('role', role, 'red');
   // ku.log('picture', picture, 'red');
+
+  ku.log('indexNum', indexNum, 'red');
   return {
     type: 'app/updateMember',
     payload: {
@@ -42,7 +44,7 @@ export const updateMember = ( _id, firstName, lastName, role, picture, index ) =
       lastName,
       role,
       picture,
-      index,
+      indexNum,
     }
   }
 }

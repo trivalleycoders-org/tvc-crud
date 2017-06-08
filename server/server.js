@@ -66,8 +66,9 @@ router.post('/members', (req, res) => {
     firstName: "",
     lastName: "",
     role: "",
-    index: 0,
+    indexNum: "",
   }
+  console.log('post.req.body', req.body)
   // console.log('member', member);
   db.collection('members').insertOne(member)
     .then(result =>
@@ -101,7 +102,8 @@ router.put('/members/:id', (req, res) => {
   delete res._id;
   // ** should do some validation here to check that all required
   // data is present of of a valid type **
-
+  console.log(req.body)
+  console.log(req.body.member.indexNum);
   db.collection('members').findOneAndUpdate(
     { _id: memberId },
     { $set:
@@ -110,7 +112,7 @@ router.put('/members/:id', (req, res) => {
         firstName: req.body.member.firstName,
         lastName: req.body.member.lastName,
         role: req.body.member.role,
-        index: req.body.member.index,
+        indexNum: req.body.member.indexNum,
       }
     },
     { returnNewDocument: true },

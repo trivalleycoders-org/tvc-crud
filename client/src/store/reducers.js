@@ -34,17 +34,17 @@ export const newMemberId = (state = null, { type, payload }) => {
   switch (type) {
     case 'app/updateNewMemberId':
       ku.log('reducers.newMemberId.payload', payload, 'red');
-      return payload._id;
+      return payload.value;
     default:
       return state;
   }
 };
 
 export const showManageMembers = (state = 'no-show', { type, payload }) => {
-  ku.log('reducers.showManageMembers: payload', payload, 'green');
+
   switch (type) {
     case 'app/updateShowManageMembers':
-
+      ku.log('reducers.showManageMembers: payload', payload, 'green');
       return payload;
     default:
       return state;

@@ -59,12 +59,12 @@ const MemberRow = (props) => {
         </FormGroup>
       </Col>
       <Col sm={4} md={1}>
-        <FormGroup controlId='index'>
+        <FormGroup controlId='indexNum'>
           <FormControl
-            key={'index'}
+            key={'indexNum'}
             type='text'
-            name='index'
-            value={props.index}
+            name='indexNum'
+            value={props.indexNum}
             onChange={(event) => props.update(event.target.name, event.target.value)}
           />
         </FormGroup>
