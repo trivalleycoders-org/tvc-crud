@@ -1,1 +1,1 @@
-mongorestore -d tvcwebsite --drop --dir dump
+mongorestore -d tvcwebsite --drop --dir dump/tvcwebsite

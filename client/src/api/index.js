@@ -1,10 +1,5 @@
 import { normalize, Schema, arrayOf } from 'normalizr';
-const events = new Schema('events', { idAttribute: '_id' });
-const projects = new Schema('projects', { idAttribute: '_id' });
 const members = new Schema('members', { idAttribute: '_id' });
-const techlogos = new Schema('techlogos', { idAttribute: '_id' });
-const navButtons = new Schema('navButtons', { idAttribute: '_id' } );
-const sponsors = new Schema('sponsors', { idAttribute: '_id' } );
 import * as ku from '../lib/ke-utils';
 
 
@@ -31,19 +26,6 @@ export const fetchJson = (url, options = {}) => (
 );
 
 export default {
-  events: {
-    readList() {
-      return fetchJson('/events')
-        .then((data) => {
-          const normalized = normalize(data, arrayOf(events));
-          const o = {
-            events: normalized.entities.events || {},
-            ids: normalized.result,
-          };
-          return o;
-        });
-    },
-  },
 
   members: {
     readList() {
@@ -60,16 +42,15 @@ export default {
           return o;
         });
     },
-
     create() {
       return fetchJson(
         '/members',
         { method: 'POST' }
       );
     },
-
     update(id, member) {
-      console.log('members.update.id', id);
+      ku.log('api.members.update: id', id, 'pink');
+      ku.log('api.members.update: member', member, 'pink')
       return fetchJson(
         `/members/${id}`,
         {
@@ -77,9 +58,8 @@ export default {
           body: JSON.stringify({ member }) }
       );
     },
-
     delete(id) {
-      ku.log('api.members.delete: id', id, 'green');
+      ku.log('api.members.delete: id', id, 'pink');
       return fetchJson(
         `/members/${id}`,
         {

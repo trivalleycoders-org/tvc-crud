@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { merge, prepend, dissoc, without } from 'ramda';
+// import { merge, prepend, dissoc, without } from 'ramda';
+import { merge, prepend, dissoc } from 'ramda';
 import * as ku from '../lib/ke-utils';
 
 export const membersById = ( state = {}, { type, payload }) => {
@@ -19,7 +20,7 @@ export const membersById = ( state = {}, { type, payload }) => {
 export const membersIds = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceMembers':
-      // ku.log('membersIds.payload', payload, 'green');
+      // ku.log('membersIds.payload', payload, 'orange');
       return payload.ids;
     case 'app/insertMember':
       return prepend(payload._id, state);
@@ -30,10 +31,10 @@ export const membersIds = (state = [], { type, payload }) => {
   }
 };
 
-export const newMemberId = (state = null, { type, payload }) => {
+export const updateNewMemberId = (state = 'not-set', { type, payload }) => {
   switch (type) {
     case 'app/updateNewMemberId':
-      ku.log('reducers.newMemberId.payload', payload, 'red');
+      ku.log('reducers.newMemberId.payload', payload, 'orange');
       return payload.value;
     default:
       return state;
@@ -44,7 +45,7 @@ export const showManageMembers = (state = 'no-show', { type, payload }) => {
 
   switch (type) {
     case 'app/updateShowManageMembers':
-      ku.log('reducers.showManageMembers: payload', payload, 'green');
+      ku.log('reducers.showManageMembers: payload', payload, 'orange');
       return payload;
     default:
       return state;
@@ -70,7 +71,7 @@ export default combineReducers({
     membersIds,
   }),
   ui: combineReducers({
-    newMemberId,
+    updateNewMemberId,
     showManageMembers,
   }),
   requests,

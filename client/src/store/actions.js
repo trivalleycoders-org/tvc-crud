@@ -1,8 +1,12 @@
 import api from '../api';
 import * as ku from '../lib/ke-utils'
 
+/*
+    payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
+ */
+
 export const updateShowManageMembers = (value) => {
-  console.log('showManageMembers: value', value, 'green');
+  ku.log('actions.showManageMembers: value', value, 'green');
   return {
   // value will be true / false
   type: 'app/updateShowManageMembers',
@@ -15,27 +19,24 @@ export const replaceMembers = (members) => ({
   payload: members,
 });
 
-export const updateNewMemberId = (value) => ({
-  type: 'app/updateNewMemberId',
-  payload: { value },
-});
+export const updateNewMemberId = (value) => {
+  ku.log('actions.updateNewMemberId: value', value, 'green');
+  return {
+    type: 'app/updateNewMemberId',
+    payload: { value },
+  }
+};
 
 export const insertMember = (member) => {
-  // ku.log('actions.insertMember: member', member, 'red')
+  // ku.log('actions.insertMember: member', member, 'green')
   return {
     type: 'app/insertMember',
     payload: member,
   }
 };
 
-export const updateMember = ( _id, firstName, lastName, role, picture, indexNum ) => {
-  ku.log('_id', _id, 'red');
-  // ku.log('firstName', firstName, 'red');
-  // ku.log('lastName', lastName, 'red');
-  // ku.log('role', role, 'red');
-  // ku.log('picture', picture, 'red');
-
-  ku.log('indexNum', indexNum, 'red');
+export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
+  ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}`, 'green')
   return {
     type: 'app/updateMember',
     payload: {
@@ -44,7 +45,7 @@ export const updateMember = ( _id, firstName, lastName, role, picture, indexNum 
       lastName,
       role,
       picture,
-      indexNum,
+      index,
     }
   }
 }
@@ -115,8 +116,8 @@ export const requestCreateMember = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
-  success: [ updateNewMemberId('none') ]
-  // failure:
+  success: [ updateNewMemberId('none') ],
+  failure: [ ]
 })
 
 export const requestDeleteMember = createRequestThunk({

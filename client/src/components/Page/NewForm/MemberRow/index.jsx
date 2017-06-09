@@ -1,6 +1,6 @@
 // MemberRow
 import React from 'react';
-import { Row, Col, FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap'
+import { Row, Col, FormControl, FormGroup } from 'react-bootstrap'
 import './style.css';
 
 const MemberRow = (props) => {
@@ -36,17 +36,6 @@ const MemberRow = (props) => {
           />
         </FormGroup>
       </Col>
-      <Col sm={4} md={4}>
-        <FormGroup controlId='picture'>
-          <FormControl
-            key={'picture'}
-            type='text'
-            name='picture'
-            value={props.picture}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
-          />
-        </FormGroup>
-      </Col>
       <Col sm={4} md={3}>
         <FormGroup controlId='role'>
           <FormControl
@@ -58,13 +47,24 @@ const MemberRow = (props) => {
           />
         </FormGroup>
       </Col>
-      <Col sm={4} md={1}>
-        <FormGroup controlId='indexNum'>
+      <Col sm={4} md={4}>
+        <FormGroup controlId='picture'>
           <FormControl
-            key={'indexNum'}
+            key={'picture'}
             type='text'
-            name='indexNum'
-            value={props.indexNum}
+            name='picture'
+            value={props.picture}
+            onChange={(event) => props.update(event.target.name, event.target.value)}
+          />
+        </FormGroup>
+      </Col>
+      <Col sm={4} md={1}>
+        <FormGroup controlId='index'>
+          <FormControl
+            key={'index'}
+            type='text'
+            name='index'
+            value={props.index}
             onChange={(event) => props.update(event.target.name, event.target.value)}
           />
         </FormGroup>

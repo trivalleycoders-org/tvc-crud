@@ -24,27 +24,6 @@ const staticFiles = express.static(path.join(__dirname, '../../client/build'))
 
 app.use(staticFiles)
 
-router.get('/events', (req, res) => {
-  db.collection('events').find().toArray()
-    .then(events => {
-      res.json(events)
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' })
-    })
-})
-
-router.get('/projects', (req, res) => {
-  db.collection('projects').find().toArray()
-    .then(projects => {
-      res.json(projects)
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' })
-    })
-})
 
 /*
     Members
@@ -62,13 +41,13 @@ router.get('/members', (req, res) => {
 
 router.post('/members', (req, res) => {
   const member = {
-    picture: "",
     firstName: "",
     lastName: "",
     role: "",
-    indexNum: "",
+    picture: "",
+    index: 0,
   }
-  console.log('post.req.body', req.body)
+  // console.log('post.req.body', req.body)
   // console.log('member', member);
   db.collection('members').insertOne(member)
     .then(result =>
@@ -89,6 +68,8 @@ router.put('/members/:id', (req, res) => {
   // ku.log('router.put/members/:id body', req.body);
   // ku.log('req.params.id', req.params.id);
   // ku.log('req.body.firstName', req.body.member.firstName)
+
+  // Convert _id to format needed by mongo
   let memberId;
   try {
     memberId = new ObjectId(req.params.id);
@@ -96,14 +77,17 @@ router.put('/members/:id', (req, res) => {
     resp.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
-  // ku.log('memberId', memberId);
-  // const member = req.body;
   // Don't need the _id as stored in the member object so delete it
   delete res._id;
+
+  // ku.log('memberId', memberId);
+  // const member = req.body;
+
   // ** should do some validation here to check that all required
   // data is present of of a valid type **
-  console.log(req.body)
-  console.log(req.body.member.indexNum);
+  console.log('members.put: body: ', req.body)
+  console.log('members.put: body.member.index: ', req.body.member.index);
+  /* Mongoose?
   db.collection('members').findOneAndUpdate(
     { _id: memberId },
     { $set:
@@ -112,14 +96,24 @@ router.put('/members/:id', (req, res) => {
         firstName: req.body.member.firstName,
         lastName: req.body.member.lastName,
         role: req.body.member.role,
-        indexNum: req.body.member.indexNum,
+        index: req.body.member.index,
       }
     },
-    { returnNewDocument: true },
+    // { returnNewDocument: true },
+  )*/
+  db.collection('members').updateOne(
+    { _id: memberId },
+    {
+      picture: req.body.member.picture,
+      firstName: req.body.member.firstName,
+      lastName: req.body.member.lastName,
+      role: req.body.member.role,
+      index: req.body.member.index,
+    }
   )
   .then(updatedMember => {
     let udm = JSON.stringify(updatedMember)
-    ku.log('updatedMember', udm);
+    console.log('members.put: updatedMember', udm);
     res.json(updatedMember);
   })
   .catch(error => {

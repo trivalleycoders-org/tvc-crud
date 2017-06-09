@@ -1,7 +1,7 @@
 // Members
 import React from 'react';
 import { Component } from 'react';
-import { PropTypes } from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Row } from 'react-bootstrap';
 import * as actionCreators from '../../../store/actions';
@@ -10,9 +10,7 @@ import Member from './Member';
 import './style.css';
 
 class Members extends Component {
-  constructor (props) {
-    super(props);
-  }
+
   componentWillMount() {
     this.props.requestReadMembers();
   }
@@ -27,7 +25,7 @@ class Members extends Component {
               <Row className='main-row'>
                 <h1 className='section-title'>Members</h1>
                 <div className='members'>
-                  {this.props.members.sort((a, b) => a.indexNum - b.indexNum).map((m) => (
+                  {this.props.members.sort((a, b) => a.index - b.index).map((m) => (
                     <Member
                       key={m._id}
                       picture={
@@ -37,7 +35,7 @@ class Members extends Component {
                       }
                       name={m.firstName}
                       role={m.role}
-                      indexNum={m.indexNum}
+                      index={m.index}
                     />
                   ))}
                 </div>

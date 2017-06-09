@@ -1,4 +1,4 @@
-import * as ku from '../lib/ke-utils';
+// import * as ku from '../lib/ke-utils';
 
 export const getMembers = (state) =>{
   // ku.log('getMembers.state', state, 'red');
@@ -14,7 +14,7 @@ export const getMember = (state, _id) => {
 }
 
 export const getNewMemberId = (state) => {
-  return state.ui.newMemberId || 'none';
+  return state.ui.updateNewMemberId || 'none';
 }
 
 export const getShowManageMembers = (state) => {
