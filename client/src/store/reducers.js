@@ -4,17 +4,22 @@ import { merge, prepend, dissoc } from 'ramda';
 import * as ku from '../lib/ke-utils';
 
 export const membersById = ( state = {}, { type, payload }) => {
-  switch (type) {
-    case 'app/updateMember':
-    case 'app/insertMember': // new/add & update
-      return merge(state, { [payload._id]: payload });
-    case 'app/replaceMembers': // read list load all
-      return payload.members;
-    case 'app/removeNote':
-      return dissoc(payload._id, state);
-    default:
-      return state;
+  try {
+    switch (type) {
+      case 'app/updateMember':
+      case 'app/insertMember': // new/add & update
+        return merge(state, { [payload._id]: payload });
+      case 'app/replaceMembers': // read list load all
+        return payload.members;
+      case 'app/removeMember':
+        return dissoc(payload._id, state);
+      default:
+        return state;
+    }
+  } catch (e) {
+    ku.log('reducers.membersById', e, 'red');
   }
+
 }
 
 export const membersIds = (state = [], { type, payload }) => {
