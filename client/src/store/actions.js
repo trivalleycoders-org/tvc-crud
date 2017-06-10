@@ -37,6 +37,7 @@ export const insertMember = (member) => {
 
 export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
   ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}`, 'green')
+  // property 'formSort' will be set to the value of 'index'
   return {
     type: 'app/updateMember',
     payload: {
@@ -46,6 +47,7 @@ export const updateMember = ( _id, firstName, lastName, role, picture, index ) =
       role,
       picture,
       index,
+      formSort: index,
     }
   }
 }

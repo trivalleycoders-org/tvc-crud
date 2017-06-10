@@ -9,6 +9,7 @@ import * as selectors from '../../../store/selectors'
 import Member from './Member';
 import './style.css';
 
+
 class Members extends Component {
 
   componentWillMount() {
@@ -28,11 +29,8 @@ class Members extends Component {
                   {this.props.members.sort((a, b) => a.index - b.index).map((m) => (
                     <Member
                       key={m._id}
-                      picture={
-                        m.picture
-                        ? m.picture
-                        : 'http://klequis.com/images/tvc/male-person.02.png'
-                      }
+                      _id={m._id}
+                      picture={m.picture}
                       name={m.firstName}
                       role={m.role}
                       index={m.index}

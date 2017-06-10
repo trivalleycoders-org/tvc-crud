@@ -8,6 +8,7 @@ import * as selectors from '../../../store/selectors';
 import MemberRow from './MemberRow';
 import * as ku from '../../../lib/ke-utils';
 
+
 class NewForm extends Component {
 
   componentWillMount() {
@@ -74,17 +75,17 @@ class NewForm extends Component {
             <Col sm={4} md={4}>Role</Col>
             <Col sm={4} md={3}>Picture</Col>
             <Col sm={4} md={1}>Index</Col>
-            {this.props.members.sort((a, b) => a.index - b.index).map((m) => (
+            {this.props.members.sort((a, b) => a.formSort - b.formSort).map((m) => (
               <MemberRow
                 key={m._id}
                 _id={m._id}
-                firstName={m.firstName}
-                lastName={m.lastName}
-                new={m._id === newMemberId}
-                role={m.role}
-                picture={m.picture}
-                index={m.index}
-                update={updateLocalMember}
+                  firstName={m.firstName}
+                  lastName={m.lastName}
+                  new={m._id === newMemberId}
+                  role={m.role}
+                  picture={m.picture}
+                  index={m.index}
+                  update={updateLocalMember}
               />
             ))}
           </Grid>

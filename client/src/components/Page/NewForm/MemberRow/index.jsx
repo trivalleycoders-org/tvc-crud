@@ -2,18 +2,16 @@
 import React from 'react';
 import { Row, Col, FormControl, FormGroup } from 'react-bootstrap'
 import './style.css';
+// import * as ku from '../../../../lib/ke-utils'
 
 const MemberRow = (props) => {
   let memberStyle;
   props.new
     ? memberStyle = 'new-member-style'
     : memberStyle = '';
+
   return (
     <Row className={memberStyle}>
-      <p>
-        {/* {_id} */}
-        {/* {memberRowId} */}
-      </p>
       <Col sm={4} md={2}>
         <FormGroup controlId='firstName'>
           <FormControl

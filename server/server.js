@@ -45,7 +45,8 @@ router.post('/members', (req, res) => {
     lastName: "",
     role: "",
     picture: "",
-    index: 0,
+    index: "",
+    formSort: "-1",
   }
   // console.log('post.req.body', req.body)
   // console.log('member', member);
