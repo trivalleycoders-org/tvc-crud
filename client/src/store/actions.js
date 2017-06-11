@@ -115,15 +115,6 @@ export const requestCreateMember = createRequestThunk({
   success: [ insertMember, (member) => updateNewMemberId(member._id) ],
 });
 
-// export const requestUpdateMember = () => {
-//   return createRequestThunk({
-//     request: api.members.update,
-//     key: (_id) => `updateMember/${_id}`,
-//     success: [ updateNewMemberId('none') ],
-//     failure: [ ]
-//   })
-// }
-
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
@@ -131,10 +122,9 @@ export const requestUpdateMember = createRequestThunk({
   failure: [ ]
 })
 
-
 export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (_id) => `deleteMember/${_id}`,
-  success: [ (member) => removeMember(member._id), updateNewMemberId('none') ]
+  success: [ (member) => removeMember(member._id), updateNewMemberId('none') ],
   // failure:
 })

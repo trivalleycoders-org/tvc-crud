@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-import { Grid, Row} from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 import Members from './Members';
 import * as actionCreators from '../../store/actions';
 import * as selectors from '../../store/selectors';
