@@ -6,7 +6,8 @@ import * as ku from '../lib/ke-utils'
  */
 
 export const updateShowManageMembers = (value) => {
-  ku.log('actions.showManageMembers: value', value, 'green');
+  // Calls the showManageMembers reducer
+  ku.log('actions.updateShowManageMembers: value', value, 'green');
   return {
   // value will be true / false
   type: 'app/updateShowManageMembers',
@@ -20,7 +21,7 @@ export const replaceMembers = (members) => ({
 });
 
 export const updateNewMemberId = (value) => {
-  ku.log('actions.updateNewMemberId: value', value, 'green');
+  // ku.log('actions.updateNewMemberId: value', value, 'green');
   return {
     type: 'app/updateNewMemberId',
     payload: { value },
@@ -34,6 +35,22 @@ export const insertMember = (member) => {
     payload: member,
   }
 };
+
+export const updateMemberFormFields = ( _id, firstName, lastName, role, picture, index, formSort) => {
+  ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}, ${formSort}`, 'green')
+  return {
+    type: 'app/updateMemberFormFields',
+    payload: {
+      _id,
+      firstName,
+      lastName,
+      role,
+      picture,
+      index,
+      formSort,
+    }
+  }
+}
 
 export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
   ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}`, 'green')

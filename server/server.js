@@ -17,13 +17,9 @@ app.use(bodyParser.urlencoded({extended: false}))
 // }
 
 let db;
-
 const router = express.Router()
-
 const staticFiles = express.static(path.join(__dirname, '../../client/build'))
-
 app.use(staticFiles)
-
 
 /*
     Members
@@ -110,6 +106,7 @@ router.put('/members/:id', (req, res) => {
       lastName: req.body.member.lastName,
       role: req.body.member.role,
       index: req.body.member.index,
+      formSort: req.body.member.formSort,
     }
   )
   .then(updatedMember => {

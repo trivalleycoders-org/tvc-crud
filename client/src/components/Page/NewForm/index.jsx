@@ -2,12 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-import { Grid, Col, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import * as actionCreators from '../../../store/actions';
 import * as selectors from '../../../store/selectors';
 import MemberRow from './MemberRow';
 import * as ku from '../../../lib/ke-utils';
-
 
 class NewForm extends Component {
 
@@ -16,7 +15,7 @@ class NewForm extends Component {
   }
 
   render() {
-    const { updateMember, newMember, readMembersRequest, requestCreateMember, requestUpdateMember, requestDeleteMember, newMemberId, updateShowManageMembers } = this.props;
+    const { updateMember, newMember, readMembersRequest, requestCreateMember, requestUpdateMember, requestDeleteMember, newMemberId, updateShowManageMembers, updateMemberFormFields } = this.props;
 
     // ku.log('newMemberId', newMemberId, 'blue');
     // ku.log('newMember', newMember, 'blue');
@@ -39,9 +38,9 @@ class NewForm extends Component {
       const valIndex = eventName === 'index'
         ? eventValue
         : newMember.index;
-
+      const valFormSort = newMember.formSort;
       // ku.log('update values: ', `${valId}, ${valFirstName}, ${valLastName}, ${valRole}, ${valPicture}, ${valIndex}`, 'blue')
-      updateMember(valId, valFirstName, valLastName, valRole, valPicture, valIndex)
+      updateMemberFormFields(valId, valFirstName, valLastName, valRole, valPicture, valIndex, valFormSort)
 
     }
 
@@ -64,28 +63,30 @@ class NewForm extends Component {
           Cancel
         </Button>
         <Button
-          onClick={() => updateShowManageMembers('no-show')}
+          onClick={() => updateShowManageMembers(false)}
         >
           Close
         </Button>
         <form>
           <Grid>
-            <Col sm={4} md={2}>First Name</Col>
-            <Col sm={4} md={2}>Last Name</Col>
-            <Col sm={4} md={4}>Role</Col>
-            <Col sm={4} md={3}>Picture</Col>
-            <Col sm={4} md={1}>Index</Col>
+            <Row>
+              <Col sm={4} md={2}>First Name</Col>
+              <Col sm={4} md={2}>Last Name</Col>
+              <Col sm={4} md={4}>Role</Col>
+              <Col sm={4} md={3}>Picture</Col>
+              <Col sm={4} md={1}>Index</Col>
+            </Row>
             {this.props.members.sort((a, b) => a.formSort - b.formSort).map((m) => (
               <MemberRow
                 key={m._id}
                 _id={m._id}
-                  firstName={m.firstName}
-                  lastName={m.lastName}
-                  new={m._id === newMemberId}
-                  role={m.role}
-                  picture={m.picture}
-                  index={m.index}
-                  update={updateLocalMember}
+                firstName={m.firstName}
+                lastName={m.lastName}
+                new={m._id === newMemberId}
+                role={m.role}
+                picture={m.picture}
+                index={m.index}
+                update={updateLocalMember}
               />
             ))}
           </Grid>
