@@ -121,29 +121,30 @@ router.put('/members/:id', (req, res) => {
 });
 
 app.delete('/members/:id', (req, res) => {
-  let memberId;
+  let mongoId;
+  let origId = req.params.id
   try {
-    memberId = new ObjectId(req.params.id);
+    mongoId = new ObjectId(origId);
   } catch (error) {
     res.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
 
-  db.collection('members').deleteOne({ _id: memberId })
+  db.collection('members').deleteOne({ _id: mongoId })
     .then(result => {
       let tmp = JSON.stringify(result)
-      console.log('members.delete: result', tmp);
-      res.json(result);
+
+      const ret = {
+        result: JSON.stringify(result),
+        _id: origId,
+      }
+      console.log('members.delete: ret', ret);
+      res.json(ret);
     })
     .catch(error => {
       console.log('put./members', error);
       res.status(500).json( { message: `ERROR Internal server error: ${error}`});
     });
-
-
-
-
-
 })
 
 app.use(router)

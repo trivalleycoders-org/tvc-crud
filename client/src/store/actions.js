@@ -2,7 +2,11 @@ import api from '../api';
 import * as ku from '../lib/ke-utils'
 
 /*
+    Payload
     payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
+
+    Success & Failure
+    success & failure must always be a function, i.e., you can only pass functions.
  */
 
 export const updateShowManageMembers = (value) => {
@@ -79,11 +83,11 @@ export const updateMember = ( _id, firstName, lastName, role, picture, index ) =
 }
 
 export const removeMember = (_id) => {
-  // ku.log('actions.removeMember: _id', _id, 'green')
-  return {
+  ku.log('actions.removeMember: _id', _id, 'green')
+  return ({
     type: 'app/removeMember',
     payload: { _id },
-  }
+  })
 };
 
 export const markRequestPending = (key) => ({
@@ -117,7 +121,7 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
 
   return (...args) => (dispatch) => {
     const requestKey = (typeof key === 'function') ? key(...args) : key;
-
+    ku.log('actions.createRequestThunk: success', success, 'red');
     start.forEach((actionCreator) => dispatch(actionCreator()));
     dispatch(markRequestPending(requestKey));
     return request(...args)
@@ -126,6 +130,7 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
         dispatch(markRequestSuccess(requestKey));
       })
       .catch((reason) => {
+        ku.log('actions.createRequestThunk: reason', reason, 'red');
         failure.forEach((actionCreator) => dispatch(actionCreator(reason)));
         dispatch(markRequestFailed(reason, requestKey));
       });
@@ -147,15 +152,16 @@ export const requestCreateMember = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
-  success: [ updateNewMemberId('none') ],
+  success: [ () => updateNewMemberId('none') ],
 
 })
 
 export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (_id) => `deleteMember/${_id}`,
-  success: [ (member) => removeMember(), updateNewMemberId('none') ],
+  success: [ (ret) => removeMember(ret._id), () => updateNewMemberId('none') ],
+  // success: [ removeMember, updateNewMemberId('none') ],
   // failure: [ updateTopMessage ]
-  failure: [ () => updateTopMessage('requestDeleteMember failed') ]
+  // failure: [ () => updateTopMessage('requestDeleteMember failed') ]
 
 })

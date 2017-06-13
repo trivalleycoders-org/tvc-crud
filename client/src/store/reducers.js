@@ -23,7 +23,7 @@ export const membersById = ( state = {}, { type, payload }) => {
         return state;
     }
   } catch (e) {
-    // ku.log('reducers.membersById', e, 'red');
+    ku.log('reducers.membersById', e, 'red');
   }
 
 }
@@ -37,12 +37,13 @@ export const membersIds = (state = [], { type, payload }) => {
       case 'app/insertMember':
         return prepend(payload._id, state);
       case 'app/removeMember':
+        ku.log('reducers.membersIds.removeMember: payload', payload, 'orange')
         return without(payload._id, state);
       default:
         return state;
     }
   } catch (e) {
-    // ku.log('reducers.membersById', e, 'red');
+    ku.log('reducers.membersById', e, 'red');
   }
 
 };
