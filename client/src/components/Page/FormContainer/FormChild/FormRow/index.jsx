@@ -6,7 +6,7 @@ import './style.css';
 
 const MemberRow = (props) => {
   let memberStyle;
-  props.new
+  props.active
     ? memberStyle = 'new-member-style'
     : memberStyle = '';
 
@@ -19,7 +19,7 @@ const MemberRow = (props) => {
             type='text'
             name='firstName'
             value={props.firstName}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
+            onChange={(event) => props.updateField(event.target.name, event.target.value)}
           />
         </FormGroup>
       </Col>
@@ -30,7 +30,7 @@ const MemberRow = (props) => {
             type='text'
             name='lastName'
             value={props.lastName}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
+            onChange={(event) => props.updateField(event.target.name, event.target.value)}
           />
         </FormGroup>
       </Col>
@@ -41,7 +41,7 @@ const MemberRow = (props) => {
             type='text'
             name='role'
             value={props.role}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
+            onChange={(event) => props.updateField(event.target.name, event.target.value)}
           />
         </FormGroup>
       </Col>
@@ -52,7 +52,7 @@ const MemberRow = (props) => {
             type='text'
             name='picture'
             value={props.picture}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
+            onChange={(event) => props.updateField(event.target.name, event.target.value)}
           />
         </FormGroup>
       </Col>
@@ -63,7 +63,7 @@ const MemberRow = (props) => {
             type='text'
             name='index'
             value={props.index}
-            onChange={(event) => props.update(event.target.name, event.target.value)}
+            onChange={(event) => props.updateField(event.target.name, event.target.value)}
           />
         </FormGroup>
       </Col>

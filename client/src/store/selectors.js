@@ -1,7 +1,7 @@
-// import * as ku from '../lib/ke-utils';
+import * as ku from '../lib/ke-utils';
 
 export const getMembers = (state) =>{
-  // ku.log('getMembers.state', state, 'red');
+  // ku.log('selectors.getMembers.state', state, 'red');
   return state.members.membersIds.map((id) => state.members.membersById[id]);
 }
 
@@ -21,6 +21,9 @@ export const getShowManageMembers = (state) => {
   return state.ui.showManageMembers;
 }
 
+export const getTopMessage = (state) => {
+  return state.ui.topMessage;
+}
 // redux selectors
 export const getRequest = (state, key) =>
   state.requests[key] || {};

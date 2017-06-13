@@ -49,8 +49,8 @@ export default {
       );
     },
     update(id, member) {
-      ku.log('api.members.update: id', id, 'pink');
-      ku.log('api.members.update: member', member, 'pink')
+      // ku.log('api.members.update: id', id, 'pink');
+      // ku.log('api.members.update: member', member, 'pink')
       return fetchJson(
         `/members/${id}`,
         {
@@ -59,7 +59,7 @@ export default {
       );
     },
     delete(id) {
-      ku.log('api.members.delete: id', id, 'pink');
+      // ku.log('api.members.delete: id', id, 'pink');
       return fetchJson(
         `/members/${id}`,
         {

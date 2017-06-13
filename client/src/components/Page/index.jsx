@@ -7,8 +7,8 @@ import Members from './Members';
 import * as actionCreators from '../../store/actions';
 import * as selectors from '../../store/selectors';
 import './style.css';
-import ShowManageMembers from './NewForm';
-import NewForm from './NewForm';
+import ShowManageMembers from './FormContainer';
+import TopMessage from './TopMessage';
 import * as ku from '../../lib/ke-utils';
 
 class Page extends Component {
@@ -17,12 +17,13 @@ class Page extends Component {
    const manageMembers = showManageMembers.value
      ? <ShowManageMembers />
      : ''
-    ku.log('Page: manageMembers', manageMembers, 'blue');
+    // ku.log('Page: manageMembers', manageMembers, 'blue');
     return (
       <Grid className='page-grid-outer' fluid>
         <Row className='page-grid-outer-row'>
           <Grid fluid>
             <Row>
+              <TopMessage />
               <Button
                 name='manageMembers'
                 onClick={(event) => this.props.updateShowManageMembers(!showManageMembers.value)}

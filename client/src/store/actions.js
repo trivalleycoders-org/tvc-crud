@@ -7,13 +7,22 @@ import * as ku from '../lib/ke-utils'
 
 export const updateShowManageMembers = (value) => {
   // Calls the showManageMembers reducer
-  ku.log('actions.updateShowManageMembers: value', value, 'green');
+  // ku.log('actions.updateShowManageMembers: value', value, 'green');
   return {
   // value will be true / false
   type: 'app/updateShowManageMembers',
   payload: { value },
   }
 };
+
+export const updateTopMessage = (value) => {
+  // ku.log('actions.updateTopMessage: message', message.error, 'green')
+  // ku.log('actions.updateTopMessage: typeOf message', typeof message, 'green')
+  return {
+    type: 'app/updateTopMessage',
+    payload: { value },
+  }
+}
 
 export const replaceMembers = (members) => ({
   type: 'app/replaceMembers',
@@ -37,7 +46,7 @@ export const insertMember = (member) => {
 };
 
 export const updateMemberFormFields = ( _id, firstName, lastName, role, picture, index, formSort) => {
-  ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}, ${formSort}`, 'green')
+  // ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}, ${formSort}`, 'green')
   return {
     type: 'app/updateMemberFormFields',
     payload: {
@@ -53,7 +62,7 @@ export const updateMemberFormFields = ( _id, firstName, lastName, role, picture,
 }
 
 export const updateMember = ( _id, firstName, lastName, role, picture, index ) => {
-  ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}`, 'green')
+  // ku.log('actions.updateMember', `${_id}, ${firstName}, ${lastName}, ${role}, ${picture}, ${index}`, 'green')
   // property 'formSort' will be set to the value of 'index'
   return {
     type: 'app/updateMember',
@@ -69,10 +78,13 @@ export const updateMember = ( _id, firstName, lastName, role, picture, index ) =
   }
 }
 
-export const removeMember = (_id) => ({
-  type: 'app/removeMember',
-  payload: { _id },
-});
+export const removeMember = (_id) => {
+  // ku.log('actions.removeMember: _id', _id, 'green')
+  return {
+    type: 'app/removeMember',
+    payload: { _id },
+  }
+};
 
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
@@ -136,12 +148,14 @@ export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `updateMember/${_id}`,
   success: [ updateNewMemberId('none') ],
-  failure: [ ]
+
 })
 
 export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (_id) => `deleteMember/${_id}`,
-  success: [ (member) => removeMember(member._id), updateNewMemberId('none') ],
-  // failure:
+  success: [ (member) => removeMember(), updateNewMemberId('none') ],
+  // failure: [ updateTopMessage ]
+  failure: [ () => updateTopMessage('requestDeleteMember failed') ]
+
 })

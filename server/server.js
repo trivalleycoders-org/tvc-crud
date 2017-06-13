@@ -71,7 +71,7 @@ router.put('/members/:id', (req, res) => {
   try {
     memberId = new ObjectId(req.params.id);
   } catch (error) {
-    resp.status(422).json({ message: `Invalid member._id: ${error}`});
+    res.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
   // Don't need the _id as stored in the member object so delete it
@@ -125,10 +125,25 @@ app.delete('/members/:id', (req, res) => {
   try {
     memberId = new ObjectId(req.params.id);
   } catch (error) {
-    resp.status(422).json({ message: `Invalid member._id: ${error}`});
+    res.status(422).json({ message: `Invalid member._id: ${error}`});
     return;
   }
+
   db.collection('members').deleteOne({ _id: memberId })
+    .then(result => {
+      let tmp = JSON.stringify(result)
+      console.log('members.delete: result', tmp);
+      res.json(result);
+    })
+    .catch(error => {
+      console.log('put./members', error);
+      res.status(500).json( { message: `ERROR Internal server error: ${error}`});
+    });
+
+
+
+
+
 })
 
 app.use(router)
