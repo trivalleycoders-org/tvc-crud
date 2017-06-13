@@ -121,7 +121,7 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
 
   return (...args) => (dispatch) => {
     const requestKey = (typeof key === 'function') ? key(...args) : key;
-    ku.log('actions.createRequestThunk: success', success, 'red');
+    // ku.log('actions.createRequestThunk: success', success, 'red');
     start.forEach((actionCreator) => dispatch(actionCreator()));
     dispatch(markRequestPending(requestKey));
     return request(...args)
@@ -130,7 +130,7 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
         dispatch(markRequestSuccess(requestKey));
       })
       .catch((reason) => {
-        ku.log('actions.createRequestThunk: reason', reason, 'red');
+        // ku.log('actions.createRequestThunk: reason', reason, 'red');
         failure.forEach((actionCreator) => dispatch(actionCreator(reason)));
         dispatch(markRequestFailed(reason, requestKey));
       });

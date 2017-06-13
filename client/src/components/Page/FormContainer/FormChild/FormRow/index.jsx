@@ -1,6 +1,7 @@
-// MemberRow
+// FormRow
 import React from 'react';
 import { Row, Col, FormControl, FormGroup } from 'react-bootstrap'
+import InputField from './InputField'
 import './style.css';
 // import * as ku from '../../../../lib/ke-utils'
 
@@ -11,63 +12,60 @@ const MemberRow = (props) => {
     : memberStyle = '';
 
   return (
-    <Row className={memberStyle}>
-      <Col sm={4} md={2}>
-        <FormGroup controlId='firstName'>
-          <FormControl
+    <form>
+      <Row className={memberStyle}>
+        <Col sm={4} md={2}>
+          <InputField
             key={'firstName'}
             type='text'
-            name='firstName'
+            name={'firstName'}
             value={props.firstName}
-            onChange={(event) => props.updateField(event.target.name, event.target.value)}
+            validationRule='text'
+            updateField={props.updateField}
           />
-        </FormGroup>
-      </Col>
-      <Col sm={4} md={2}>
-        <FormGroup controlId='lastName'>
-          <FormControl
+        </Col>
+        <Col sm={4} md={2}>
+          <InputField
             key={'lastName'}
             type='text'
             name='lastName'
             value={props.lastName}
-            onChange={(event) => props.updateField(event.target.name, event.target.value)}
+            validationRule='text'
+            updateField={props.updateField}
           />
-        </FormGroup>
-      </Col>
-      <Col sm={4} md={3}>
-        <FormGroup controlId='role'>
-          <FormControl
+        </Col>
+        <Col sm={4} md={3}>
+          <InputField
             key={'role'}
             type='text'
             name='role'
             value={props.role}
-            onChange={(event) => props.updateField(event.target.name, event.target.value)}
+            validationRule='text'
+            updateField={props.updateField}
           />
-        </FormGroup>
-      </Col>
-      <Col sm={4} md={4}>
-        <FormGroup controlId='picture'>
-          <FormControl
+        </Col>
+        <Col sm={4} md={4}>
+          <InputField
             key={'picture'}
             type='text'
             name='picture'
+            validationRule='text'
             value={props.picture}
-            onChange={(event) => props.updateField(event.target.name, event.target.value)}
+            updateField={props.updateField}
           />
-        </FormGroup>
-      </Col>
-      <Col sm={4} md={1}>
-        <FormGroup controlId='index'>
-          <FormControl
+        </Col>
+        <Col sm={4} md={1}>
+          <InputField
             key={'index'}
             type='text'
             name='index'
+            validationRule='integer'
             value={props.index}
-            onChange={(event) => props.updateField(event.target.name, event.target.value)}
+            updateField={props.updateField}
           />
-        </FormGroup>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </form>
   )
 }
 

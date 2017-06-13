@@ -26,6 +26,12 @@ class NewForm extends Component {
     const updateField = (fieldName, fieldValue) => {
       // ku.log('FormContainer.updateField: eventName:fieldValue', `${fieldName}:${fieldValue}` , 'blue');
 
+      updateFieldValue(fieldName, fieldValue)
+
+    }
+    
+
+    const updateFieldValue = (fieldName, fieldValue) => {
       const valId = newMember._id;
       const valFirstName = fieldName === 'firstName'
         ? fieldValue
@@ -51,6 +57,14 @@ class NewForm extends Component {
       requestDeleteMember(newMember._id, newMember)
     }
 
+    const save = () => {
+      requestUpdateMember(newMember._id, newMember)
+    }
+
+    const close = () => {
+      updateShowManageMembers(false)
+    }
+
     // ku.log('FormContainer.render.return: newMemberId', newMemberId, 'blue')
 
     return (
@@ -58,6 +72,8 @@ class NewForm extends Component {
         createNew={createNew}
         newMemberId={newMemberId}
         cancel={cancel}
+        save={save}
+        close={close}
         updateField={updateField}
         members={this.props.members}
 

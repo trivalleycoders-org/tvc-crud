@@ -50,9 +50,26 @@ const getStyle = (styleName) => {
 }
 
 module.exports = {
-  log(name, value = '', style = '') {
+  /*
+      Would be nice to be able to send in name value pairs
+      The goal would be to do less typing
+      The best format might have to be an object
+      In log would need to do
+      1. start a group
+      2. loop through message:value pairs
+      3. end the group
+   */
+
+  log(message = '', value = '', style = '') {
+    // if (Array.isArray(value)) {
+    //   console.group()
+    //   for (let i=0; i<value.length, i++) {
+    //     console.log(value)
+    //   }
+    //   console.groupEnd()
+    // }
     style = getStyle(style);
-    const message = `%c[log] ${name}`;
+    message = `%c[log] ${message}`;
     // eslint-disable-next-line no-console
     console.log(message, style, value);
   },
