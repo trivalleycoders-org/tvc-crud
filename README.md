@@ -5,3 +5,9 @@ This project is a stripped down version of trivalleycoders. It is used for writi
 ## Status
 - most up to date branch is 'generic'
 - all other branches pending clean-up
+
+## To Do - next
+- check that formSort is working properly
+- does cancel result in a ui update
+- validation
+  - can the variable(s) currently in local state for managing validation status be moved to redux?
