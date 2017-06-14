@@ -62,8 +62,8 @@ router.post('/members', (req, res) => {
 });
 
 router.put('/members/:id', (req, res) => {
-  // ku.log('router.put/members/:id body', req.body);
-  // ku.log('req.params.id', req.params.id);
+  ku.log('server.router.put/members: body', req.body);
+  ku.log('server.router.put/members: req.params.id', req.params.id);
   // ku.log('req.body.firstName', req.body.member.firstName)
 
   // Convert _id to format needed by mongo
@@ -106,7 +106,7 @@ router.put('/members/:id', (req, res) => {
       lastName: req.body.member.lastName,
       role: req.body.member.role,
       index: req.body.member.index,
-      formSort: req.body.member.formSort,
+      formSort: req.body.member.index, // yes, formSort should be set to index
     }
   )
   .then(updatedMember => {

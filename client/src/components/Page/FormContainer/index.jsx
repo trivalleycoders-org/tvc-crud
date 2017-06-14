@@ -29,7 +29,7 @@ class NewForm extends Component {
       updateFieldValue(fieldName, fieldValue)
 
     }
-    
+
 
     const updateFieldValue = (fieldName, fieldValue) => {
       const valId = newMember._id;
@@ -49,7 +49,7 @@ class NewForm extends Component {
         ? fieldValue
         : newMember.index;
       const valFormSort = newMember.formSort;
-      // ku.log('update values: ', `${valId}, ${valFirstName}, ${valLastName}, ${valRole}, ${valPicture}, ${valIndex}`, 'blue')
+      ku.log('update values: ', `${valId}, ${valFirstName}, ${valLastName}, ${valRole}, ${valPicture}, ${valIndex}`, 'blue')
       updateMemberFormFields(valId, valFirstName, valLastName, valRole, valPicture, valIndex, valFormSort)
     }
 
